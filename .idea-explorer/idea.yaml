@@ -1,0 +1,23 @@
+idea:
+  title: Is it easier or harder to hide adversarial prompts in longer documents?
+  domain: nlp
+  hypothesis: 'The effectiveness of hiding adversarial prompts within long documents
+    depends on whether increased document length provides more opportunities to conceal
+    adversarial instructions or if the additional content introduces noise that diminishes
+    the adversarial effect.
+
+    '
+  background:
+    description: We all know about the adversarial prompts that look like gibberish
+      but get an LLM to do something like tell you how to build a bomb or simply write
+      a python function. Is it easier or harder to hide such 'instructions' in very
+      long documents? Does the document create noise that overrides the adversarial
+      effect or does it give more room to work with?
+  metadata:
+    source: IdeaHub
+    source_url: https://hypogenic.ai/ideahub/idea/RE4hPBZFPcPjlucQzkA8
+    idea_id: is_it_easier_or_harder_to_hide_20260211_231755_00cc0661
+    created_at: '2026-02-11T23:17:55.002412'
+    status: submitted
+    github_repo_name: adversarial-prompts-abe2-claude
+    github_repo_url: https://github.com/Hypogenic-AI/adversarial-prompts-abe2-claude
