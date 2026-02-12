@@ -1,0 +1,76 @@
+\begin{thebibliography}{10}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Andriushchenko et~al.(2025)Andriushchenko, Croce, and
+  Flammarion]{andriushchenko2024jailbreaking}
+Maksym Andriushchenko, Francesco Croce, and Nicolas Flammarion.
+\newblock Jailbreaking leading safety-aligned {LLMs} with simple adaptive
+  attacks.
+\newblock In \emph{Proceedings of the International Conference on Learning
+  Representations}, 2025.
+
+\bibitem[Chen et~al.(2024)]{chen2024secalign}
+Sizhe Chen et~al.
+\newblock {SecAlign}: Defending against prompt injection with preference
+  optimization.
+\newblock \emph{arXiv preprint arXiv:2410.05451}, 2024.
+
+\bibitem[Fu et~al.(2025)Fu, Ding, Zhang, and Wang]{fu2025short}
+Yichen Fu, Haoyu Ding, Ziming Zhang, and Xin Wang.
+\newblock Short-length adversarial training helps {LLMs} defend long-length
+  jailbreak attacks.
+\newblock \emph{arXiv preprint arXiv:2502.04204}, 2025.
+
+\bibitem[Gozverev et~al.(2025)]{gozverev2025can}
+Aleksandar Gozverev et~al.
+\newblock Can {LLMs} separate instructions from data? and what do we even mean
+  by that?
+\newblock In \emph{Proceedings of the International Conference on Learning
+  Representations}, 2025.
+
+\bibitem[Greshake et~al.(2023)Greshake, Abdelnabi, Mishra, Endres, Holz, and
+  Fritz]{greshake2023not}
+Kai Greshake, Sahar Abdelnabi, Shailesh Mishra, Christoph Endres, Thorsten
+  Holz, and Mario Fritz.
+\newblock Not what you've signed up for: Compromising real-world
+  {LLM}-integrated applications with indirect prompt injection.
+\newblock \emph{arXiv preprint arXiv:2302.12173}, 2023.
+
+\bibitem[Hines et~al.(2024)Hines, Kramer, Grady, Berger, and
+  Celikyilmaz]{hines2024spotlighting}
+Keegan Hines, Gary Kramer, Joseph Grady, Mikhail Berger, and Asli Celikyilmaz.
+\newblock Spotlighting: Defending {LLMs} against prompt injection.
+\newblock \emph{arXiv preprint arXiv:2403.14720}, 2024.
+
+\bibitem[Jiang et~al.(2025)]{jiang2025invisible}
+Zhengyuan Jiang et~al.
+\newblock Invisible prompts: Hidden adversarial instructions via font-based
+  injection.
+\newblock \emph{arXiv preprint arXiv:2505.16957}, 2025.
+
+\bibitem[Liu et~al.(2024)Liu, Lin, Hewitt, Paranjape, Bevilacqua, Petroni, and
+  Liang]{liu2024lost}
+Nelson~F. Liu, Kevin Lin, John Hewitt, Ashwin Paranjape, Michele Bevilacqua,
+  Fabio Petroni, and Percy Liang.
+\newblock Lost in the middle: How language models use long contexts.
+\newblock \emph{Transactions of the Association for Computational Linguistics},
+  12:\penalty0 157--173, 2024.
+
+\bibitem[Shah et~al.(2025)Shah, Wu, Zhong, Robey, and
+  Raghunathan]{shah2025ninja}
+Aounon Shah, Ruiqi Wu, Haoyu Zhong, Alexander Robey, and Aditi Raghunathan.
+\newblock Jailbreaking in the haystack: Compute-optimal long-context attacks on
+  {LLMs}.
+\newblock \emph{arXiv preprint arXiv:2511.04707}, 2025.
+
+\bibitem[Wallace et~al.(2025)]{wallace2025aside}
+Eric Wallace et~al.
+\newblock {ASIDE}: Architectural separation of instructions and data in
+  language models.
+\newblock \emph{arXiv preprint arXiv:2503.10566}, 2025.
+
+\end{thebibliography}

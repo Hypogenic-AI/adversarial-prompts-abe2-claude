@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "stages": {
+    "resource_finder": {
+      "success": true,
+      "completion_marker": "/workspaces/adversarial-prompts-abe2-claude/.resource_finder_complete",
+      "outputs": {
+        "literature_review": "/workspaces/adversarial-prompts-abe2-claude/literature_review.md",
+        "resources_catalog": "/workspaces/adversarial-prompts-abe2-claude/resources.md",
+        "papers_dir": "/workspaces/adversarial-prompts-abe2-claude/papers",
+        "datasets_dir": "/workspaces/adversarial-prompts-abe2-claude/datasets",
+        "code_dir": "/workspaces/adversarial-prompts-abe2-claude/code"
+      },
+      "log_file": "/workspaces/adversarial-prompts-abe2-claude/logs/resource_finder_claude.log",
+      "transcript_file": "/workspaces/adversarial-prompts-abe2-claude/logs/resource_finder_claude_transcript.jsonl",
+      "elapsed_time": 3864.6195709705353
+    },
+    "experiment_runner": {
+      "success": true,
+      "return_code": 0,
+      "elapsed_time": 1782.8923432826996,
+      "log_file": "/workspaces/adversarial-prompts-abe2-claude/logs/execution_claude.log",
+      "transcript_file": "/workspaces/adversarial-prompts-abe2-claude/logs/execution_claude_transcript.jsonl"
+    }
+  },
+  "work_dir": "/workspaces/adversarial-prompts-abe2-claude"
+}

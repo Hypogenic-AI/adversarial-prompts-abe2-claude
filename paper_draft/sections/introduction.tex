@@ -1,0 +1,19 @@
+\section{Introduction}
+\label{sec:intro}
+
+LLMs are increasingly deployed to process long documents---contracts, medical records, research papers, and email threads---where users trust the model to follow system instructions while treating the document as data. This creates a fundamental vulnerability: adversarial instructions embedded within the document can hijack the model's behavior, a threat known as \emph{prompt injection}~\citep{greshake2023not}. As context windows expand to 100K+ tokens, understanding how document length affects this vulnerability becomes a pressing security question.
+
+\para{Does document length help or hurt attackers?} Recent work by \citet{shah2025ninja} introduced the \ninja attack framework and found that embedding harmful goals within longer benign documents monotonically increases attack success rates. Their explanation invokes attention dilution: as context grows, the model's attention spreads across more tokens, weakening its ability to distinguish instructions from data. This finding, if universal, would imply that every advance in long-context processing simultaneously enlarges the attack surface for prompt injection.
+
+However, the \ninja study tested primarily open-source models (Llama, Qwen, Mistral) and a single API model (Gemini 2.0 Flash). Frontier models from OpenAI and Anthropic---which incorporate extensive safety training and may employ different instruction-data separation mechanisms---remain untested. It is unclear whether the monotonically increasing trend generalizes to these models or whether stronger safety alignment can invert or neutralize the effect.
+
+\para{Our approach.} We design a controlled experiment to measure how document length affects prompt injection success across three frontier LLMs: \gptmini, \geminiflash, and \claudesonnet. Rather than testing harmful content generation, we use a \emph{benign codeword injection} paradigm inspired by the \sep benchmark~\citep{gozverev2025can}: the system prompt asks the model to summarize a document, while an embedded instruction tells it to output a unique codeword instead. This approach cleanly measures the same underlying mechanism---instruction-data confusion---without generating harmful content. We systematically vary document length (0 to 10,000 words), injection position (beginning, middle, end), and context type (random vs.\ relevant filler), yielding 1,553 valid trials across 42 experimental conditions per model.
+
+\para{Key findings.} The answer to whether longer documents help attackers is: \emph{it depends on the model}. \geminiflash shows a statistically significant increasing trend in Injection Success Rate (\isr rises from 87.5\% to 98.1\%, $r{=}0.083$, $p{=}0.032$), consistent with the \ninja finding. \gptmini shows the opposite: a significant decreasing trend (\isr falls from 86.7\% to 80.8\%, $r{=}{-}0.082$, $p{=}0.026$). \claudesonnet is completely immune, with 0\% \isr across all 142 trials. The dominant factor is the model itself ($\chi^2{=}718.6$, $p{<}10^{-100}$), which explains an order of magnitude more variance than any document property.
+
+We make the following contributions:
+\begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+\item We demonstrate that the effect of document length on prompt injection success is \emph{model-dependent}, challenging the prior assumption that longer documents universally facilitate attacks.
+\item We provide the first systematic comparison of prompt injection vulnerability across three frontier model families (OpenAI, Google, Anthropic) under controlled conditions, revealing qualitatively different length--vulnerability relationships.
+\item We introduce a reproducible, safety-preserving experimental framework using benign codeword injections that measures instruction-data confusion without generating harmful content.
+\end{itemize}

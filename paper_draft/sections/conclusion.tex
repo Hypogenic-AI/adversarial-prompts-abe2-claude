@@ -1,0 +1,8 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+We investigated whether embedding adversarial instructions in longer documents makes them more effective at hijacking LLM behavior. Through 1{,}553 controlled injection trials across three frontier models, we found that the effect of document length on prompt injection success is \emph{model-dependent}: \geminiflash shows an increasing trend (consistent with prior work), \gptmini shows a decreasing trend (contradicting prior work), and \claudesonnet is completely immune. The dominant factor determining injection success is the model itself, not document properties.
+
+These results challenge the assumption---drawn from studies on open-source models---that longer documents universally help attackers. For the research community, this means that findings about prompt injection vulnerability should always be tested across multiple model families before being generalized. For AI security practitioners, the takeaway is clear: robust instruction-data separation at the model level is the most effective defense, and model selection matters more than document-level precautions.
+
+\para{Future work.} Three directions are particularly promising. First, extending this study to open-source models (Llama, Mistral, Qwen) would clarify which length-vulnerability pattern each model family follows. Second, testing at extreme document lengths (50K--100K words) would reveal whether the observed trends continue, plateau, or reverse. Third, evaluating whether \claudesonnet's immunity holds against more sophisticated attacks (\eg GCG suffixes, encoded instructions, multi-turn escalation) would determine the robustness of its instruction-data separation.

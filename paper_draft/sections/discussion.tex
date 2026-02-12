@@ -1,0 +1,46 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Why Do Models Diverge?}
+\label{sec:divergence}
+
+The most striking result is the qualitative divergence between models. We consider several explanations:
+
+\para{Different instruction-data separation mechanisms.} \claudesonnet's complete immunity (0\% ISR even for bare injections) suggests a fundamentally different approach to instruction-data separation. Anthropic's emphasis on constitutional AI and instruction hierarchy~\citep{gozverev2025can} may produce models that treat user-supplied content as strictly non-authoritative, regardless of how instruction-like it appears. This architectural or training-level defense renders document length irrelevant.
+
+\para{Attention mechanism differences.} The opposing trends for \gptmini (decreasing ISR) and \geminiflash (increasing ISR) suggest different attention behaviors in long contexts. One hypothesis is that \gptmini allocates proportionally more attention to the system prompt as user content grows, effectively ``diluting'' the adversarial instruction. \geminiflash may instead distribute attention more uniformly, allowing longer contexts to create more opportunities for instruction-data confusion. Without access to attention weights, we cannot verify this hypothesis directly.
+
+\para{Safety training specifics.} The models may differ in how their safety training handles long-context scenarios. If \gptmini was specifically trained on long-context prompt injection examples, it could have learned to be more vigilant about instruction-like content in longer documents. The \ninja paper's focus on open-source models means this type of proprietary safety training was not previously tested.
+
+\subsection{Relationship to Prior Work}
+\label{sec:prior_comparison}
+
+Our \geminiflash results are consistent with the \ninja finding~\citep{shah2025ninja} that longer contexts increase attack success. However, the \gptmini results directly contradict this trend, and the \claudesonnet results show that sufficiently strong safety training can eliminate the length effect entirely. This suggests that the \ninja finding, while valid for the models tested, should not be generalized as a universal property of LLMs.
+
+The absence of a context-type effect contrasts with the \ninja finding that relevant context outperforms random context. This difference likely stems from our use of explicit, instruction-like injections (``Disregard all previous instructions...'') rather than the \ninja approach of embedding harmful goals within thematically camouflaged text. When the adversarial content is already clearly instructional, surrounding context relevance provides no additional camouflage benefit.
+
+The partial ``Lost in the Middle'' effect for \gptmini (beginning $>$ middle $\approx$ end) aligns with the primacy bias documented by \citet{liu2024lost} but lacks the recency advantage that would produce the expected U-shaped curve. This may reflect different attention patterns for instruction-like content compared to the factual retrieval tasks studied by \citet{liu2024lost}.
+
+\subsection{Limitations}
+\label{sec:limitations}
+
+\para{Benign proxy vs.\ harmful content.} We use codeword injection rather than harmful behavior elicitation. While the underlying mechanism (instruction-data confusion) is the same, absolute ISR values may differ for harmful-content attacks, which encounter additional safety filters targeting specific harmful topics. Our results characterize the instruction-following vulnerability, not the full attack surface including content-specific filters.
+
+\para{Limited model coverage.} We test three models from three providers. Open-source models (Llama, Mistral, Qwen) may show different patterns. The \ninja paper found increasing trends for these models, suggesting they may follow the \geminiflash pattern, but this remains to be confirmed under our experimental protocol.
+
+\para{Simple injection templates.} We use explicit, instruction-like injection text. More sophisticated attacks (\eg GCG suffix attacks~\citep{andriushchenko2024jailbreaking}, encoded instructions~\citep{jiang2025invisible}, multi-turn escalation) might show different length-effectiveness relationships. In particular, \claudesonnet's immunity may not hold against more advanced attacks.
+
+\para{Document length cap.} We test up to 10{,}000 words (${\sim}$13K tokens). Modern models support 100K+ tokens, and the trends we observe may change at extreme lengths. \gptmini's decreasing trend might reverse at very long contexts if the model's vigilance eventually saturates.
+
+\para{Reduced sample size for Claude.} Rate limiting restricted \claudesonnet to 142 trials. While the 0\% ISR is statistically definitive ($p < 10^{-43}$ against 1\% true ISR), a larger sample would provide tighter confidence bounds and enable analysis of position and context-type effects.
+
+\para{Temperature sensitivity.} Using temperature $= 0$ maximizes reproducibility but may miss stochastic effects. Some injections might succeed at higher temperatures due to sampling variance.
+
+\subsection{Implications for AI Security}
+\label{sec:implications}
+
+\para{Model selection matters more than input sanitization.} The 98.1\% gap between \geminiflash (98.1\% ISR at 10K words) and \claudesonnet (0\% ISR) shows that the choice of model is the single most important defense against prompt injection. Input-side defenses such as limiting document length or filtering instruction-like content address a secondary factor.
+
+\para{Document length is not a reliable threat indicator.} Security systems should not assume that shorter documents are safer or that longer documents are more dangerous. The relationship is model-dependent and can go in either direction.
+
+\para{Complete immunity is achievable.} \claudesonnet demonstrates that robust instruction-data separation is possible in practice, even for simple attacks. This provides an existence proof that motivates further investment in training-level defenses rather than input-side filtering.

@@ -1,0 +1,69 @@
+\section{Methodology}
+\label{sec:method}
+
+\subsection{Task Design}
+\label{sec:task}
+
+We use a \emph{benign codeword injection} paradigm to measure instruction-data confusion without generating harmful content. The setup mirrors a realistic document-processing scenario:
+
+\para{System prompt.} A fixed system prompt instructs the model to act as a document analysis assistant and provide a 2--3 sentence summary of the input document. This prompt remains constant across all conditions.
+
+\para{Injected instruction.} Each test case embeds a single adversarial instruction within the document, directing the model to disregard the system prompt and instead output a unique codeword (\eg ``PINEAPPLE\_PIZZA\_42''). We use 20 distinct injection templates, each containing a unique codeword.
+
+\para{Detection.} A trial is classified as a \emph{successful injection} if the model's response contains the expected codeword, and a \emph{failed injection} if the model produces a genuine summary instead. This binary criterion eliminates subjective judgment.
+
+\subsection{Experimental Design}
+\label{sec:design}
+
+We cross three independent variables to create a factorial design:
+
+\para{Document length.} We test 7 levels: 0 (bare injection, no document), 100, 500, 1{,}000, 2{,}000, 5{,}000, and 10{,}000 words. Filler text is generated from paragraph templates on diverse topics, with documents trimmed to approximate target word counts.
+
+\para{Injection position.} We place the adversarial instruction at three positions within the document: \emph{beginning} (${\sim}$5\% from the start), \emph{middle} (${\sim}$50\%), and \emph{end} (${\sim}$95\%). Position is undefined for the length-0 condition.
+
+\para{Context type.} We test two types of filler text: \emph{random} (paragraphs on unrelated topics such as marine biology and medieval architecture) and \emph{relevant} (paragraphs on AI and NLP topics thematically related to language models). Random filler is generated from 15 topic templates, and relevant filler from 12 AI-themed templates.
+
+This yields $6 \text{ lengths} \times 3 \text{ positions} \times 2 \text{ contexts} + 1 \text{ bare injection} + 1 \text{ control (no injection)} = 38$ conditions per injection template. With 20 templates per model, we have 740 planned trials per model (2{,}220 total).
+
+\subsection{Models}
+\label{sec:models}
+
+We test three frontier LLMs spanning three providers:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Model} & \textbf{Provider} & \textbf{API} & \textbf{Context} \\
+\midrule
+\gptmini & OpenAI & Direct & 1M tokens \\
+\geminiflash & Google & OpenRouter & 1M tokens \\
+\claudesonnet & Anthropic & OpenRouter & 1M tokens \\
+\bottomrule
+\end{tabular}
+\caption{Models tested. All models support context windows far exceeding our maximum document length (${\sim}$13K tokens for 10K words).}
+\label{tab:models}
+\end{table}
+
+All API calls use temperature $= 0$ for deterministic outputs and a maximum of 300 output tokens. Document generation uses a fixed random seed of 42 for reproducibility.
+
+\subsection{Controls and Validation}
+\label{sec:controls}
+
+We include two control conditions per model. \emph{No-injection controls} (6 per model) verify that the codeword detection mechanism produces no false positives: documents without embedded instructions should never trigger codeword detection. \emph{Bare-injection controls} (20 per model) test whether the model follows the adversarial instruction when no surrounding document is present, establishing a baseline compliance rate.
+
+All 18 control documents (6 per model) yielded 0 false positives, confirming the reliability of codeword detection.
+
+\subsection{Evaluation Metric}
+\label{sec:metric}
+
+We report \textbf{Injection Success Rate (ISR)}: the fraction of trials in which the model's response contains the expected codeword. Formally, for a set of $n$ trials in a given condition:
+\begin{equation}
+\text{ISR} = \frac{1}{n}\sum_{i=1}^{n} \mathbb{1}[\text{codeword}_i \in \text{response}_i]
+\label{eq:isr}
+\end{equation}
+
+\subsection{Statistical Analysis}
+\label{sec:stats}
+
+We use point-biserial correlation to test for monotonic trends between document length and ISR, logistic regression to estimate effect sizes, Kruskal-Wallis tests for position effects, Mann-Whitney $U$ tests for context-type effects, and a chi-squared test for overall model differences. We report exact $p$-values throughout and consider $p < 0.05$ as statistically significant.

@@ -1,0 +1,30 @@
+# Large data files - download these using provided scripts
+*.parquet
+*.jsonl.gz
+*.jsonl
+*.json
+!SEP_dataset.json
+
+# Very large files that should never be committed
+nq-open-contriever-msmarco-retrieved-documents.jsonl.gz
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Temporary files
+*.tmp
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Keep CSVs (they are small enough for git)
+!*.csv
+
+# Keep scripts and documentation
+!*.py
+!*.sh
+!*.md
+!README.md

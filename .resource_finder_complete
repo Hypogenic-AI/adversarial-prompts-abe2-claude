@@ -1,0 +1,26 @@
+Resource gathering complete.
+
+Topic: Is it easier or harder to hide adversarial prompts in longer documents?
+Domain: NLP / LLM Safety
+
+Summary of resources gathered:
+
+Papers: 17 PDFs downloaded, 5 deeply read
+  - Key finding: ASR increases with context length (NINJA attack: 23.7% → 58.8%)
+  - Defense scaling: √M training length defends against M-length attacks
+  - Position effects: beginning placement most effective, exploiting primacy bias
+
+Datasets: 5 datasets (~266 MB)
+  - HarmBench (400 behaviors), AdvBench (520 behaviors), JailbreakBench (100 behaviors)
+  - NaturalQuestions/Lost-in-the-Middle (position bias experiments)
+  - SEP (instruction-data separation benchmark)
+
+Code: 5 repositories cloned (~1.1 GB)
+  - NINJA_Attack, adv-icl, llm-adaptive-attacks, HarmBench, jailbreakbench
+
+Documentation:
+  - literature_review.md: Comprehensive synthesis with research gaps and methodology recommendations
+  - resources.md: Full catalog of all papers, datasets, and code with descriptions
+  - papers/README.md, datasets/README.md, code/README.md: Directory-specific documentation
+
+Completion timestamp: 2025-02-12
